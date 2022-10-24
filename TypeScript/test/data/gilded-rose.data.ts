@@ -1,0 +1,30 @@
+const items = [
+  {
+  name: 'Aged Brie',
+  quality: 23,
+  sellIn: 20,
+  perishableType: 'aging'
+  },
+  {
+  name: 'test item 1',
+  quality: 12,
+  sellIn: 50,
+  perishableType: 'perishable'
+  },
+  {
+    name: 'Sulfuras',
+    quality: 80,
+    perishableType: 'legendary'
+  },
+  {
+    name: 'Back stage ticket',
+    sellIn: 23,
+    quality: 30,
+    perishableType: 'limited'
+  }
+]
+
+exports.testData = {
+  
+}
+
