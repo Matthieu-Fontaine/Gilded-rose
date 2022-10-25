@@ -1,15 +1,15 @@
 const items = [
   {
-  name: 'Aged Brie',
-  quality: 23,
-  sellIn: 20,
-  perishableType: 'aging'
+    name: 'Aged Brie',
+    quality: 23,
+    sellIn: 20,
+    perishableType: 'aging'
   },
   {
-  name: 'test item 1',
-  quality: 12,
-  sellIn: 50,
-  perishableType: 'perishable'
+    name: 'test item 1',
+    quality: 12,
+    sellIn: 50,
+    perishableType: 'perishable'
   },
   {
     name: 'Sulfuras',
@@ -24,7 +24,11 @@ const items = [
   }
 ]
 
-exports.testData = {
-  
+export const testData = {
+  perishableItem: {
+    mocks: {},
+    inputs: { name: 'Lettuce', sellIn: 50, quality: 20 },
+    expects: {}
+  }
 }
 
