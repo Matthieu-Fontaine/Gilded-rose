@@ -1,4 +1,4 @@
-export abstract class item {
+export abstract class Item {
     constructor(name, sellIn, quality) {
         this.name = name;
         this.sellIn = sellIn;
@@ -9,5 +9,8 @@ export abstract class item {
     sellIn: number
     quality: number
 
+    abstract update(): void;
+
     abstract updateQuality(): void;
+    abstract updateSellIn(): void;
 }

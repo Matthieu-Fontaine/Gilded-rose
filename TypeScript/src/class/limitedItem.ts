@@ -1,12 +1,20 @@
-import { item } from './item';
+import { Item } from './item';
 
-export class limitedItem extends item {
+export class LimitedItem extends Item {
     constructor(name: string, sellIn: number, quality: number) {
         super(name, sellIn, quality);
     }
 
-    updateQuality(): void {
-        console.log("limitedItem.updateQuality() called");
+    update(): void {
+        this.updateQuality();
+        this.updateSellIn();
     }
+
+    updateQuality(): void {
+    }
+
+    updateSellIn(): void {
+    }
+
 
 }
