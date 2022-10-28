@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Gilded Rose kata in TypeScript",
   "scripts": {
-    "test": "jest --coverage true"
+    "test": "jest"
   },
   "license": "MIT",
   "private": true,

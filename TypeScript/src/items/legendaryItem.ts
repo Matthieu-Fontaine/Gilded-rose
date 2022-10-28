@@ -1,8 +1,8 @@
 import { Item } from './item';
 
 export class LegendaryItem extends Item {
-    constructor(name: string, sellIn: number, quality: number) {
-        super(name, sellIn, quality);
+    constructor(name: string) {
+        super(name, 999, 80);
     }
 
     update(): void {
@@ -11,9 +11,11 @@ export class LegendaryItem extends Item {
     }
 
     updateQuality(): void {
+        console.info('Legendary items do not change in quality');
     }
 
     updateSellIn(): void {
+        console.info('Legendary items do not change in sellIn');
     }
 
 }

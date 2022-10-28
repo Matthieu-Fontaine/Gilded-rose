@@ -1,6 +1,6 @@
 import { Item } from './item';
 
-export class PerishableItem extends Item {
+export class AgingItem extends Item {
     constructor(name: string, sellIn: number, quality: number) {
         super(name, sellIn, quality);
     }
@@ -11,9 +11,13 @@ export class PerishableItem extends Item {
     }
 
     updateQuality(): void {
+        if (this.quality < 50) {
+            this.quality++;
+        }
     }
 
     updateSellIn(): void {
+        this.sellIn--;
     }
 
 }
