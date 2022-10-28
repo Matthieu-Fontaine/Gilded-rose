@@ -1,5 +1,5 @@
 export abstract class Item {
-    constructor(name, sellIn, quality) {
+    constructor(name: string, sellIn: number, quality: number) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
