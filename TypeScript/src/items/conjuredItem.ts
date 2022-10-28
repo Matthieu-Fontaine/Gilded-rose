@@ -1,4 +1,4 @@
-import { Item } from './item';
+import { Item } from './Item';
 
 export class ConjuredItem extends Item {
   constructor(name: string, sellIn: number, quality: number) {
