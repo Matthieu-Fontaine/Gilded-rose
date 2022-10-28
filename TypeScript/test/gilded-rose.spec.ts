@@ -5,6 +5,7 @@ import { LegendaryItem } from '../src/items/legendaryItem'
 import { LimitedItem } from '../src/items/limitedItem'
 import { Item } from '../src/items/item'
 import { Shop } from '../src/items/shop'
+import { ConjuredItem } from '../src/items/conjuredItem'
 
 describe('Gilded Rose', () => {
     let items: Item[], shop: Shop
@@ -13,12 +14,14 @@ describe('Gilded Rose', () => {
         new LegendaryItem('Sulfuras, Hand of Ragnaros'),
         new AgingItem('Aged Brie', 32, 20),
         new LimitedItem('Backstage passes to a TAFKAL80ETC concert', 12, 20),
-        new PerishableItem('Cake', 0, 0),
+        new PerishableItem('Cake', -1, 1),
         new PerishableItem('Cake past', -1, 9),
         new LimitedItem('concert ticket outdated', -1, 20),
         new LimitedItem('Backstage ticket in 9 days', 9, 9),
         new LimitedItem('Backstage ticket in 5 days', 5, 34),
-        new AgingItem('Red wine', 20, 50)
+        new AgingItem('Red wine', 20, 50),
+        new ConjuredItem('Conjured Mana Cake', 3, 6),
+        new ConjuredItem('Conjured Mana Cake past', -1, 3),
     ]
     beforeAll(() => {
         shop = new Shop(items)
@@ -30,7 +33,7 @@ describe('Gilded Rose', () => {
     it('should decrease quality by 1', () => {
         expect(shop.items[0].quality).toBe(19)
     })
-    it('should decrease quality by 2', () => {
+    it('should decrease quality by 2 but not over 0', () => {
         expect(shop.items[5].quality).toBe(7)
     })
     it('shouldn\'t decrease in quality', () => {
@@ -53,5 +56,11 @@ describe('Gilded Rose', () => {
     })
     it('shouldn\'t increase quality over 50', () => {
         expect(shop.items[9].quality).toBe(50)
+    })
+    it('should decrease quality of conjured item by 2', () => {
+        expect(shop.items[10].quality).toBe(4)
+    })
+    it('should decrease quality of conjured item by 4 by not over 0', () => {
+        expect(shop.items[11].quality).toBe(0)
     })
 })

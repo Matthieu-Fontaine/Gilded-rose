@@ -11,9 +11,9 @@ export class PerishableItem extends Item {
     }
 
     updateQuality(): void {
-        if (this.quality > 0) {
-            this.quality -= this.sellIn < 0 ? 2 : 1;
-        }
+        this.quality -= this.sellIn < 0 ? 2 : 1;
+        if (this.quality < 0)
+            this.quality = 0;
     }
 
     updateSellIn(): void {
