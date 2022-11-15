@@ -3,7 +3,7 @@ import { Shop } from './Shop';
 
 export class ConsoleUI {
 
-    shop: Shop;
+    shop: Shop = new Shop();
 
     constructor(shop: Shop) {
         this.shop = shop;

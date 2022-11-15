@@ -4,6 +4,5 @@ export default interface InventoryRepository {
 	getInventory(): Item[];
 	saveInventory(items: Item[]): void;
 
-	findItem(name: String, quality: number) : Item;
-
+	findItem(name: String, quality: number) : Item | null;
 }

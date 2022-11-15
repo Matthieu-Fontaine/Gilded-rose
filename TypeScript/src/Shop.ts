@@ -6,9 +6,11 @@ import { ConsoleUI } from './consoleUI';
 export class Shop {
 
     repository: InventoryRepository;
+    balance : number;
 
-    constructor(repository: InventoryRepository) {
+    constructor(repository: InventoryRepository, balance: number = 0) {
         this.repository = repository;
+        this.balance = balance;
     }
 
     public updateInventory(): void {
@@ -23,12 +25,22 @@ export class Shop {
         });
     }
 
-    public sellItem(type: String, quality: number): void {
+    public sellItem(name: String, quality: number): void {
+        const item = this.repository.findItem(name, quality);
+        if (item) {
+            this.balance += item.getValue();
+            const items = this.removeItem(item);
+            this.repository.saveInventory(items);
 
+        }
     }
 
-
-
-
-
+    private removeItem(item: Item): Item[] {
+        const items = this.repository.getInventory();
+        const index = items.indexOf(item);
+        if (index > -1) {
+            items.splice(index, 1);
+        }
+        return items;
+    }
 }

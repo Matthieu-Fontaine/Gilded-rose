@@ -3,18 +3,21 @@ export abstract class Item {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
-        this.baseValue = baseValue;
+        this.basePrice = baseValue;
     }
 
     name: string
     sellIn: number
     quality: number
-    baseValue: number
+    basePrice: number
 
     abstract update(): void;
 
     abstract updateQuality(): void;
     abstract updateSellIn(): void;
 
-    abstract getValue(): number;
+    getValue(): number {
+        let test : number = (10 * this.quality) + this.basePrice;
+        return test;
+    }
 }

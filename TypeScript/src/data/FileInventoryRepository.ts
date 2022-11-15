@@ -69,14 +69,14 @@ export default class FileInventoryRepository implements InventoryRepository {
     })
   }
 
-  findItem(name: String, quality: number): Item {
-    let itemFound: Item;
-    const items = this.getInventory()
-    items.forEach((item: Item) => {
-      if (item.name === name && item.quality === quality) {
-        itemFound = item
+  findItem(name: String, quality: number): Item | null {
+    let itemFound: Item | null = null;
+    const items = this.getInventory();
+    for (let i = 0; i < items.length; i++) {
+      if (itemFound == null && items[i].name === name && items[i].quality === quality) {
+        itemFound = items[i];
       }
-    })
+    }
     return itemFound
   }
 }
