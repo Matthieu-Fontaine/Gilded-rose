@@ -1,8 +1,8 @@
 import { Item } from './Item';
 
 export class ConjuredItem extends Item {
-  constructor(name: string, sellIn: number, quality: number) {
-    super(name, sellIn, quality);
+  constructor(name: string, sellIn: number, quality: number, baseValue: number) {
+    super(name, sellIn, quality, baseValue);
   }
 
   update(): void {
@@ -20,4 +20,7 @@ export class ConjuredItem extends Item {
     this.sellIn--
   }
 
+  getValue(): number {
+    return this.quality;
+  }
 }

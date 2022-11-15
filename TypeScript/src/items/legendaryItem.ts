@@ -1,8 +1,8 @@
 import { Item } from './Item';
 
 export class LegendaryItem extends Item {
-    constructor(name: string) {
-        super(name, 999, 80);
+    constructor(name: string, baseValue: number) {
+        super(name, 999, 80, baseValue);
     }
 
     update(): void {
@@ -18,4 +18,7 @@ export class LegendaryItem extends Item {
         console.info('Legendary items do not change in sellIn');
     }
 
+    getValue(): number {
+        return this.quality;
+    }
 }
