@@ -18,23 +18,20 @@ type CSVItem = {
   quality: number
 }
 const csvFilePath = path.resolve(__dirname, 'Items.csv');
+const newCsvFilePath = path.resolve(__dirname, 'NewItems.csv');
 
 const headers = ['itemType', 'name', 'sellIn', 'quality'];
+let items: Item[]
 
 export default class FileInventoryRepository implements InventoryRepository {
-
   getInventory(): Item[] {
-    let items: Item[] = []
-
+    items = []
     const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
     parse(fileContent, {
       delimiter: ',',
       columns: headers,
     }, (error, result: CSVItem[]) => {
-      if (error) {
-        console.error(error);
-      }
-      console.log("Result", result);
+      if (error) console.error(error);
       result.forEach((item: CSVItem) => {
         switch (item.itemType) {
           case 'PerishableItem':
@@ -56,6 +53,7 @@ export default class FileInventoryRepository implements InventoryRepository {
   }
 
   saveInventory(items: Item[]): void {
+    if (items.length === 0) return
     const data = items.map((item: Item) => {
       return {
         itemType: item.constructor,
@@ -66,7 +64,7 @@ export default class FileInventoryRepository implements InventoryRepository {
     })
     stringify(data, { columns: headers }, (error, output) => {
       if (error) console.error(error);
-      fs.writeFileSync(csvFilePath, output, { encoding: 'utf-8' })
+      fs.writeFileSync(newCsvFilePath, output, { encoding: 'utf-8' })
     })
   }
 }
