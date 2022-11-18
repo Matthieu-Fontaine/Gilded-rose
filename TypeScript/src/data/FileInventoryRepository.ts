@@ -15,12 +15,13 @@ type CSVItem = {
   itemType: string,
   name: string,
   sellIn: number,
-  quality: number
+  quality: number,
+  baseValue: number
 }
 const csvFilePath = path.resolve(__dirname, 'Items.csv');
 const newCsvFilePath = path.resolve(__dirname, 'NewItems.csv');
 
-const headers = ['itemType', 'name', 'sellIn', 'quality'];
+const headers = ['itemType', 'name', 'sellIn', 'quality', 'baseValue'];
 let items: Item[]
 
 export default class FileInventoryRepository implements InventoryRepository {
@@ -35,15 +36,15 @@ export default class FileInventoryRepository implements InventoryRepository {
       result.forEach((item: CSVItem) => {
         switch (item.itemType) {
           case 'PerishableItem':
-            items.push(new PerishableItem(item.name, item.sellIn, item.quality)); break
+            items.push(new PerishableItem(item.name, item.sellIn, item.quality, item.baseValue)); break
           case 'LegendaryItem':
-            items.push(new LegendaryItem(item.name)); break
+            items.push(new LegendaryItem(item.name, item.baseValue)); break
           case 'ConjuredItem':
-            items.push(new ConjuredItem(item.name, item.sellIn, item.quality)); break
+            items.push(new ConjuredItem(item.name, item.sellIn, item.quality, item.baseValue)); break
           case 'AgingItem':
-            items.push(new AgingItem(item.name, item.sellIn, item.quality)); break
+            items.push(new AgingItem(item.name, item.sellIn, item.quality, item.baseValue)); break
           case 'LimitedItem':
-            items.push(new LimitedItem(item.name, item.sellIn, item.quality)); break
+            items.push(new LimitedItem(item.name, item.sellIn, item.quality, item.baseValue)); break
           default:
             console.error(`Item type ${item.itemType} not supported`)
         }
@@ -66,5 +67,16 @@ export default class FileInventoryRepository implements InventoryRepository {
       if (error) console.error(error);
       fs.writeFileSync(newCsvFilePath, output, { encoding: 'utf-8' })
     })
+  }
+
+  findItem(name: String, quality: number): Item | null {
+    let itemFound: Item | null = null;
+    const items = this.getInventory();
+    for (let i = 0; i < items.length; i++) {
+      if (itemFound == null && items[i].name === name && items[i].quality === quality) {
+        itemFound = items[i];
+      }
+    }
+    return itemFound
   }
 }

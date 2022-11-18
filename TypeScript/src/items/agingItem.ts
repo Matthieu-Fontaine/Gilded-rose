@@ -1,8 +1,8 @@
 import { Item } from './Item';
 
 export class AgingItem extends Item {
-    constructor(name: string, sellIn: number, quality: number) {
-        super(name, sellIn, quality);
+    constructor(name: string, sellIn: number, quality: number, basePrice: number) {
+        super(name, sellIn, quality, basePrice);
     }
 
     update(): void {
