@@ -1,14 +1,17 @@
 import { Item } from './items/Item';
-import { Shop } from './Shop';
-import InventoryRepository from './InventoryRepository';
+import { ShopInteractor } from './ShopInteractor';
+import ItemsGateway from './ItemsGateway';
 import InMemoryInventoryRepository from '../test/InMemoryInventoryRepository';
+import SellItemRequest from './SellItemRequest';
+import ShopInputBoundary from './ShopInputBoundary';
+
 
 export class ConsoleUI {
-    repository: InventoryRepository = new InMemoryInventoryRepository;
-    shop: Shop = new Shop(this.repository);
+    repository: ItemsGateway = new InMemoryInventoryRepository;
+    shop: ShopInputBoundary = new ShopInteractor(this.repository);
 
 
-    constructor(shop: Shop) {
+    constructor(shop: ShopInteractor) {
         this.shop = shop;
     }
 
@@ -26,8 +29,8 @@ export class ConsoleUI {
         this.shop.updateInventory();
     }
 
-    public sellItem(type: String, quality: number): void {
-        this.shop.sellItem(type, quality);
+    public sellItem(name: string, quality: number): void {
+        this.shop.sellItem(new SellItemRequest(name, quality));
     }
 
 

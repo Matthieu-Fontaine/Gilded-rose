@@ -1,15 +1,16 @@
 import FileInventoryRepository from '../src/data/FileInventoryRepository'
-import InventoryRepository from '../src/InventoryRepository'
-import { Shop } from '../src/Shop'
+import ItemsGateway from '../src/ItemsGateway'
+import { ShopInteractor } from '../src/ShopInteractor'
 import InMemoryInventoryRepository from './InMemoryInventoryRepository'
+import SellItemRequest from '../src/SellItemRequest'
 
 describe('Gilded Rose', () => {
-    let shop: Shop
-    let repository: InventoryRepository
+    let shop: ShopInteractor
+    let repository: ItemsGateway
 
     beforeAll(() => {
         repository = new InMemoryInventoryRepository()
-        shop = new Shop(repository)
+        shop = new ShopInteractor(repository)
         shop.updateInventory()
     })
     it('shouldn\'t have negative quality', () => {
@@ -49,7 +50,7 @@ describe('Gilded Rose', () => {
         expect(repository.getInventory()[11].quality).toBe(0)
     })
     it('should sell item', () => {
-        shop.sellItem('Red wine', 50)
+        shop.sellItem(new SellItemRequest('Red wine', 50))
         expect(repository.getInventory().length).toBe(11)
         expect(shop.balance).toEqual(510)
     })

@@ -4,7 +4,7 @@ import * as path from "path"
 import { stringify } from 'csv-stringify';
 import { parse } from "csv-parse"
 import { Item } from "../items/Item"
-import InventoryRepository from "../InventoryRepository"
+import ItemsGateway from "../ItemsGateway"
 import { PerishableItem } from "../items/PerishableItem"
 import { LegendaryItem } from "../items/LegendaryItem"
 import { ConjuredItem } from "../items/ConjuredItem"
@@ -24,7 +24,7 @@ const newCsvFilePath = path.resolve(__dirname, 'NewItems.csv');
 const headers = ['itemType', 'name', 'sellIn', 'quality', 'baseValue'];
 let items: Item[]
 
-export default class FileInventoryRepository implements InventoryRepository {
+export default class FileInventoryRepository implements ItemsGateway {
   getInventory(): Item[] {
     items = []
     const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });

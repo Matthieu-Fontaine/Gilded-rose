@@ -1,14 +1,15 @@
-import InventoryRepository from './InventoryRepository';
+import ItemsGateway from './ItemsGateway';
 import { Item } from './items/Item';
-import { ConsoleUI } from './consoleUI';
+import SellItemRequest from './SellItemRequest';
+import ShopInputBoundary from './ShopInputBoundary';
 
 
-export class Shop {
+export class ShopInteractor implements ShopInputBoundary {
 
-    repository: InventoryRepository;
+    repository: ItemsGateway;
     balance : number;
 
-    constructor(repository: InventoryRepository, balance: number = 0) {
+    constructor(repository: ItemsGateway, balance: number = 0) {
         this.repository = repository;
         this.balance = balance;
     }
@@ -25,8 +26,8 @@ export class Shop {
         });
     }
 
-    public sellItem(name: String, quality: number): void {
-        const item = this.repository.findItem(name, quality);
+    public sellItem(sellItemRequest: SellItemRequest): void {
+        const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
         if (item) {
             this.balance += item.getValue();
             const items = this.removeItem(item);

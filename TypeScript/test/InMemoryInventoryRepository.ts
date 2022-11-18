@@ -1,4 +1,4 @@
-import InventoryRepository from "../src/InventoryRepository";
+import ItemsGateway from "../src/ItemsGateway";
 import { AgingItem } from "../src/items/AgingItem";
 import { ConjuredItem } from "../src/items/ConjuredItem";
 import { Item } from "../src/items/Item";
@@ -6,7 +6,7 @@ import { LegendaryItem } from "../src/items/LegendaryItem";
 import { LimitedItem } from "../src/items/LimitedItem";
 import { PerishableItem } from "../src/items/PerishableItem";
 
-export default class InMemoryInventoryRepository implements InventoryRepository {
+export default class InMemoryInventoryRepository implements ItemsGateway {
 	private items: Item[] = [
 		new PerishableItem('Lettuce', 50, 20, 10),
 		new LegendaryItem('Sulfuras, Hand of Ragnaros', 80),
