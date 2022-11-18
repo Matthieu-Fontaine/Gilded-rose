@@ -1,19 +1,25 @@
 import { Item } from './items/Item';
 import { Shop } from './Shop';
+import InventoryRepository from './InventoryRepository';
+import InMemoryInventoryRepository from '../test/InMemoryInventoryRepository';
 
 export class ConsoleUI {
+    repository: InventoryRepository = new InMemoryInventoryRepository;
+    shop: Shop = new Shop(this.repository);
 
-    shop: Shop = new Shop();
 
     constructor(shop: Shop) {
         this.shop = shop;
     }
 
     public displayInventory(): void {
-        const items = this.shop.getInventory();
-        items.forEach((item: Item) => {
-            console.log(item.toString());
-        });
+        console.log("Inventory:");
+        const items = this.shop.repository.getInventory();
+        console.log(items);
+    }
+
+    public displayBalance(): void {
+        console.log(`Balance: ${this.shop.balance}`);
     }
 
     public updateInventory(): void {
