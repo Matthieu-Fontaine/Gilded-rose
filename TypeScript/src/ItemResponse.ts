@@ -8,5 +8,4 @@ export default class ItemResponse {
         this.quality = quality;
         this.value = value;
     }
-
 }

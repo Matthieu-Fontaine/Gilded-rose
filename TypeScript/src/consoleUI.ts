@@ -17,12 +17,12 @@ export class ConsoleUI {
 
     public displayInventory(): void {
         console.log("Inventory:");
-        const items = this.shop.repository.getInventory();
+        const items = this.repository.getInventory();
         console.log(items);
     }
 
     public displayBalance(): void {
-        console.log(`Balance: ${this.shop.balance}`);
+        console.log(`Balance: ${this.shop.displayBalance()}`);
     }
 
     public updateInventory(): void {

@@ -7,7 +7,7 @@ import ShopInputBoundary from './ShopInputBoundary';
 export class ShopInteractor implements ShopInputBoundary {
 
     repository: ItemsGateway;
-    balance : number;
+    balance: number;
 
     constructor(repository: ItemsGateway, balance: number = 0) {
         this.repository = repository;
@@ -43,5 +43,8 @@ export class ShopInteractor implements ShopInputBoundary {
             items.splice(index, 1);
         }
         return items;
+    }
+    displayBalance(): void {
+        console.log(`Balance: ${this.balance}`);
     }
 }
