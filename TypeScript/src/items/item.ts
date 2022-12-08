@@ -12,12 +12,11 @@ export abstract class Item {
     basePrice: number
 
     abstract update(): void;
-
     abstract updateQuality(): void;
     abstract updateSellIn(): void;
 
     getValue(): number {
-        let test : number = (10 * this.quality) + this.basePrice;
+        let test: number = (10 * this.quality) + this.basePrice;
         return test;
     }
 }

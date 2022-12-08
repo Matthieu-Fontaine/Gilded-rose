@@ -7,7 +7,7 @@ describe('Gilded Rose', () => {
     let shop: ShopInteractor
     let repository: ItemsGateway
 
-    beforeAll(() => {
+    beforeEach(() => {
         repository = new InMemoryInventoryRepository()
         shop = new ShopInteractor(repository)
         shop.updateInventory()
@@ -52,5 +52,11 @@ describe('Gilded Rose', () => {
         shop.sellItem(new SellItemRequest('Red wine', 50))
         expect(repository.getInventory().length).toBe(11)
         expect(shop.balance).toEqual(510)
+    })
+    it('should auction an item', () => {
+        console.log('inventory', repository.getInventory())
+        shop.auctionItem(new SellItemRequest('Lettuce', 19))
+        expect(repository.getInventory().length).toBe(11)
+        expect(shop.balance).toEqual(266.2000000000001)
     })
 })
