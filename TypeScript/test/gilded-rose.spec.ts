@@ -1,7 +1,6 @@
-import FileInventoryRepository from '../src/data/FileInventoryRepository'
 import ItemsGateway from '../src/ItemsGateway'
 import { ShopInteractor } from '../src/ShopInteractor'
-import InMemoryInventoryRepository from './InMemoryInventoryRepository'
+import InMemoryInventoryRepository from '../src/inventories/InMemoryInventoryRepository'
 import SellItemRequest from '../src/SellItemRequest'
 
 describe('Gilded Rose', () => {

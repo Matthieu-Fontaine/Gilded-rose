@@ -1,10 +1,10 @@
-import ItemsGateway from "../src/ItemsGateway";
-import { AgingItem } from "../src/items/AgingItem";
-import { ConjuredItem } from "../src/items/ConjuredItem";
-import { Item } from "../src/items/Item";
-import { LegendaryItem } from "../src/items/LegendaryItem";
-import { LimitedItem } from "../src/items/LimitedItem";
-import { PerishableItem } from "../src/items/PerishableItem";
+import ItemsGateway from "../ItemsGateway";
+import { AgingItem } from "../items/AgingItem";
+import { ConjuredItem } from "../items/ConjuredItem";
+import { Item } from "../items/Item";
+import { LegendaryItem } from "../items/LegendaryItem";
+import { LimitedItem } from "../items/LimitedItem";
+import { PerishableItem } from "../items/PerishableItem";
 
 export default class InMemoryInventoryRepository implements ItemsGateway {
 	private items: Item[] = [
@@ -30,7 +30,7 @@ export default class InMemoryInventoryRepository implements ItemsGateway {
 		this.items = items;
 	}
 
-	findItem(name: String, quality: number): Item | null {
+	findItem(name: string, quality: number): Item | null {
 		for (const item of this.items) {
 			if (item.name === name && item.quality === quality) {
 				return item;

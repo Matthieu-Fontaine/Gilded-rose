@@ -3,7 +3,6 @@ import { Item } from './items/Item';
 import SellItemRequest from './SellItemRequest';
 import ShopInputBoundary from './ShopInputBoundary';
 
-
 export class ShopInteractor implements ShopInputBoundary {
 
     repository: ItemsGateway;
@@ -32,7 +31,6 @@ export class ShopInteractor implements ShopInputBoundary {
             this.balance += item.getValue();
             const items = this.removeItem(item);
             this.repository.saveInventory(items);
-
         }
     }
 

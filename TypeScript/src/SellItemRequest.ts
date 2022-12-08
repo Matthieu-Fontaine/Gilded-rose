@@ -1,5 +1,3 @@
-
-
 export default class SellItemRequest {
     name: string;
     quality: number;
@@ -8,5 +6,4 @@ export default class SellItemRequest {
         this.name = name;
         this.quality = quality;
     }
-
 }

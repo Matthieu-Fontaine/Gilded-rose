@@ -1,15 +1,12 @@
-import { Item } from './items/Item';
 import { ShopInteractor } from './ShopInteractor';
 import ItemsGateway from './ItemsGateway';
-import InMemoryInventoryRepository from '../test/InMemoryInventoryRepository';
+import InMemoryInventoryRepository from './inventories/InMemoryInventoryRepository';
 import SellItemRequest from './SellItemRequest';
 import ShopInputBoundary from './ShopInputBoundary';
-
 
 export class ConsoleUI {
     repository: ItemsGateway = new InMemoryInventoryRepository;
     shop: ShopInputBoundary = new ShopInteractor(this.repository);
-
 
     constructor(shop: ShopInteractor) {
         this.shop = shop;
@@ -32,7 +29,4 @@ export class ConsoleUI {
     public sellItem(name: string, quality: number): void {
         this.shop.sellItem(new SellItemRequest(name, quality));
     }
-
-
-
 }
