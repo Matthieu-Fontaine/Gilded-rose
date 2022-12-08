@@ -45,13 +45,11 @@ export class ShopInteractor implements ShopInputBoundary {
 
     public auctionItem(sellItemRequest: SellItemRequest): void {
         const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
-        console.log('item', item)
         const maxBidTimes = 3;
         if (item) {
             let itemValue = item.getValue();
             console.log(`Starting bid: ${itemValue}`)
             for (let bidTimes = 0; bidTimes < maxBidTimes; bidTimes++) {
-                console.log(`Bid ${bidTimes + 1}: ${itemValue}`)
                 itemValue *= 1.1;
             }
             this.balance += itemValue;

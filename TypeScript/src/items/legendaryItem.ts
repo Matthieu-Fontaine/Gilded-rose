@@ -1,8 +1,9 @@
 import { Item } from './Item';
+import Attribute from './itemAttributes';
 
 export class LegendaryItem extends Item {
-    constructor(name: string, basePrice: number) {
-        super(name, 999, 80, basePrice);
+    constructor(name: string, basePrice: number, attributes: Attribute[] = []) {
+        super(name, 999, 80, basePrice, attributes);
     }
 
     update(): void {
