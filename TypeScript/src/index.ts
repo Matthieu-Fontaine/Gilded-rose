@@ -1,11 +1,10 @@
 import { ConsoleUI } from "./consoleUI";
-import { Shop } from "./Shop";
-import InventoryRepository from "./InventoryRepository";
-import InMemoryInventoryRepository from "../test/InMemoryInventoryRepository";
+import { ShopInteractor } from "./ShopInteractor";
+import ItemsGateway from "./ItemsGateway";
+import InMemoryInventoryRepository from "./inventories/InMemoryInventoryRepository";
 
-const repository: InventoryRepository = new InMemoryInventoryRepository;
-const shop: Shop = new Shop(repository);
-
+const repository: ItemsGateway = new InMemoryInventoryRepository;
+const shop: ShopInteractor = new ShopInteractor(repository);
 
 const ui = new ConsoleUI(shop);
 
