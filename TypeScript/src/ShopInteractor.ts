@@ -2,6 +2,7 @@ import ItemsGateway from './ItemsGateway';
 import { Item } from './items/Item';
 import SellItemRequest from './SellItemRequest';
 import ShopInputBoundary from './ShopInputBoundary';
+import { RelicItem } from './items/relicItem';
 
 export class ShopInteractor implements ShopInputBoundary {
 
@@ -21,17 +22,17 @@ export class ShopInteractor implements ShopInputBoundary {
 
     private updateItems(items: Item[]) {
         items.forEach((item: Item) => {
+            if (item instanceof RelicItem) this.balance += 100
             item.update();
         });
     }
 
     public sellItem(sellItemRequest: SellItemRequest): void {
         const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
-        if (item) {
-            this.balance += item.getValue();
-            const items = this.removeItem(item);
-            this.repository.saveInventory(items);
-        }
+        if (!item || item instanceof RelicItem) return
+        this.balance += item.getValue();
+        const items = this.removeItem(item);
+        this.repository.saveInventory(items);
     }
 
     private removeItem(item: Item): Item[] {
@@ -45,20 +46,23 @@ export class ShopInteractor implements ShopInputBoundary {
 
     public auctionItem(sellItemRequest: SellItemRequest): void {
         const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
-        const maxBidTimes = 3;
-        if (item) {
-            let itemValue = item.getValue();
-            console.log(`Starting bid: ${itemValue}`)
-            for (let bidTimes = 0; bidTimes < maxBidTimes; bidTimes++) {
-                itemValue *= 1.1;
-            }
-            this.balance += itemValue;
-            const items = this.removeItem(item);
-            this.repository.saveInventory(items);
-        }
+        if (!item || item instanceof RelicItem) return
+        let itemValue = this.Bidding(item);
+        this.balance += itemValue;
+        const items = this.removeItem(item);
+        this.repository.saveInventory(items);
     }
 
     displayBalance(): void {
         console.log(`Balance: ${this.balance}`);
     }
+    private Bidding(item: Item) {
+        const maxBidTimes = 3;
+        let itemValue = item.getValue();
+        for (let bidTimes = 0; bidTimes < maxBidTimes; bidTimes++) {
+            itemValue *= 1.1;
+        }
+        return itemValue;
+    }
 }
+

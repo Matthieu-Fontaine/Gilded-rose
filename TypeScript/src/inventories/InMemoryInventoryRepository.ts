@@ -5,6 +5,7 @@ import { Item } from "../items/Item";
 import { LegendaryItem } from "../items/LegendaryItem";
 import { LimitedItem } from "../items/LimitedItem";
 import { PerishableItem } from "../items/PerishableItem";
+import { RelicItem } from "../items/relicItem";
 
 export default class InMemoryInventoryRepository implements ItemsGateway {
 	private items: Item[] = [
@@ -20,6 +21,7 @@ export default class InMemoryInventoryRepository implements ItemsGateway {
 		new AgingItem('Red wine', 20, 50, 10),
 		new ConjuredItem('Conjured Mana Cake', 3, 6, 10, [{ name: 'Attack', value: 100, }, { name: 'Defense', value: -1000 }]),
 		new ConjuredItem('Conjured Mana Cake past', -1, 3, 10, [{ name: 'Attack', value: -1000, }, { name: 'Defense', value: 100 }]),
+		new RelicItem('Pandora box', [{ name: 'Attack', value: 1, }, { name: 'Defense', value: 2 }])
 	]
 
 	getInventory(): Item[] {

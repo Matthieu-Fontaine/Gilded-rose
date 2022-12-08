@@ -2,6 +2,7 @@ import ItemsGateway from '../src/ItemsGateway'
 import { ShopInteractor } from '../src/ShopInteractor'
 import InMemoryInventoryRepository from '../src/inventories/InMemoryInventoryRepository'
 import SellItemRequest from '../src/SellItemRequest'
+import { RelicItem } from '../src/items/relicItem'
 
 describe('Gilded Rose', () => {
     let shop: ShopInteractor
@@ -50,28 +51,38 @@ describe('Gilded Rose', () => {
     })
     it('should sell item', () => {
         shop.sellItem(new SellItemRequest('Red wine', 50))
-        expect(repository.getInventory().length).toBe(11)
-        expect(shop.balance).toEqual(510)
+        expect(repository.getInventory().length).toBe(12)
+        expect(shop.balance).toEqual(610)
     })
     it('shouldn\'t sell item if not in inventory', () => {
         shop.sellItem(new SellItemRequest('Lettuce', 40))
-        expect(repository.getInventory().length).toBe(12)
-        expect(shop.balance).toEqual(0)
+        expect(repository.getInventory().length).toBe(13)
+        expect(shop.balance).toEqual(100)
     })
     it('should auction an item', () => {
         shop.auctionItem(new SellItemRequest('Lettuce', 19))
-        expect(repository.getInventory().length).toBe(11)
-        expect(shop.balance).toEqual(266.2000000000001)
+        expect(repository.getInventory().length).toBe(12)
+        expect(shop.balance).toEqual(366.2000000000001)
     })
     it('shouldn\'t auction item if not in inventory', () => {
         shop.auctionItem(new SellItemRequest('Red wine', 40))
-        expect(repository.getInventory().length).toBe(12)
-        expect(shop.balance).toEqual(0)
+        expect(repository.getInventory().length).toBe(13)
+        expect(shop.balance).toEqual(100)
     })
     it('should return item attributes', () => {
         expect(repository.getInventory()[0].getAttributes()).toEqual(['Attack + 1', 'Defense + 1'])
     })
     it('should return no item attributes', () => {
         expect(repository.getInventory()[2].getAttributes()).toEqual([])
+    })
+    it('should add 100 gold to balance when relic item is present', () => {
+        expect(shop.balance).toEqual(100)
+        shop.updateInventory()
+        expect(shop.balance).toEqual(200)
+    })
+    it('should not sell relic item', () => {
+        shop.sellItem(new SellItemRequest('Relic', 50))
+        expect(repository.getInventory().length).toBe(13)
+        expect(shop.balance).toEqual(100)
     })
 })
