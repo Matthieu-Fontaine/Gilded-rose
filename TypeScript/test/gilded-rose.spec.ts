@@ -53,10 +53,25 @@ describe('Gilded Rose', () => {
         expect(repository.getInventory().length).toBe(11)
         expect(shop.balance).toEqual(510)
     })
+    it('shouldn\'t sell item if not in inventory', () => {
+        shop.sellItem(new SellItemRequest('Lettuce', 40))
+        expect(repository.getInventory().length).toBe(12)
+        expect(shop.balance).toEqual(0)
+    })
     it('should auction an item', () => {
-        console.log('inventory', repository.getInventory())
         shop.auctionItem(new SellItemRequest('Lettuce', 19))
         expect(repository.getInventory().length).toBe(11)
         expect(shop.balance).toEqual(266.2000000000001)
+    })
+    it('shouldn\'t auction item if not in inventory', () => {
+        shop.auctionItem(new SellItemRequest('Red wine', 40))
+        expect(repository.getInventory().length).toBe(12)
+        expect(shop.balance).toEqual(0)
+    })
+    it('should return item attributes', () => {
+        expect(repository.getInventory()[0].getAttributes()).toEqual(['Attack + 1', 'Defense + 1'])
+    })
+    it('should return no item attributes', () => {
+        expect(repository.getInventory()[2].getAttributes()).toEqual([])
     })
 })

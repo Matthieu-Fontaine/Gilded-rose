@@ -1,8 +1,9 @@
 import { Item } from './Item';
+import Attribute from './itemAttributes';
 
 export class PerishableItem extends Item {
-    constructor(name: string, sellIn: number, quality: number, basePrice: number) {
-        super(name, sellIn, quality, basePrice);
+    constructor(name: string, sellIn: number, quality: number, basePrice: number, attributes: Attribute[] = []) {
+        super(name, sellIn, quality, basePrice, attributes);
     }
 
     update(): void {
