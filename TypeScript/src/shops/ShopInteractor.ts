@@ -3,7 +3,7 @@ import { Item } from '../items/Item';
 import SellItemRequest from '../item-handlers/SellItemRequest';
 import ShopInputBoundary from './ShopInputBoundary';
 import { RelicItem } from '../items/relicItem';
-import { DiscordNotification } from '../notification-senders/discord';
+import { DiscordMessage } from '../notification-senders/discord';
 
 export class ShopInteractor implements ShopInputBoundary {
 
@@ -32,7 +32,7 @@ export class ShopInteractor implements ShopInputBoundary {
         const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
         if (!item || item instanceof RelicItem) return
         this.balance += item.getValue();
-        new DiscordNotification().send(`Sold ${item.name} for ${item.getValue()} gold.`);
+        new DiscordMessage().send(`Sold ${item.name} for ${item.getValue()} gold.`);
         const items = this.removeItem(item);
         this.repository.saveInventory(items);
     }
@@ -51,7 +51,7 @@ export class ShopInteractor implements ShopInputBoundary {
         if (!item || item instanceof RelicItem) return
         let itemValue = this.Bidding(item);
         this.balance += itemValue;
-        new DiscordNotification().send(`Auctioned ${item.name} for ${itemValue} gold.`)
+        new DiscordMessage().send(`Auctioned ${item.name} for ${itemValue} gold.`)
         const items = this.removeItem(item);
         this.repository.saveInventory(items);
     }
