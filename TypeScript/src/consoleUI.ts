@@ -18,8 +18,8 @@ export class ConsoleUI {
         console.log(items);
     }
 
-    public displayBalance(): void {
-        console.log(`Balance: ${this.shop.displayBalance()}`);
+    public displayBalance(balance: number): void {
+        console.log(`Balance: ${balance}`);
     }
 
     public updateInventory(): void {
@@ -28,5 +28,8 @@ export class ConsoleUI {
 
     public sellItem(name: string, quality: number): void {
         this.shop.sellItem(new SellItemRequest(name, quality));
+    }
+    public auctionItem(name: string, quality: number): void {
+        this.shop.auctionItem(new SellItemRequest(name, quality));
     }
 }
