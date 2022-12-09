@@ -1,8 +1,35 @@
-import ItemsGateway from '../src/ItemsGateway'
-import { ShopInteractor } from '../src/ShopInteractor'
+import ItemsGateway from '../src/item-handlers/ItemsGateway'
+import { ShopInteractor } from '../src/shops/ShopInteractor'
 import InMemoryInventoryRepository from '../src/inventories/InMemoryInventoryRepository'
-import SellItemRequest from '../src/SellItemRequest'
-import { RelicItem } from '../src/items/relicItem'
+import SellItemRequest from '../src/item-handlers/SellItemRequest'
+import * as discord from 'discord.js';
+jest.mock('discord.js', () => {
+    return {
+        Client: jest.fn().mockImplementation(() => {
+            return {
+                login: jest.fn().mockImplementation(() => {
+                    return Promise.resolve();
+                }),
+                destroy: jest.fn().mockImplementation(() => {
+                    return Promise.resolve();
+                }),
+                channels: {
+                    fetch: jest.fn().mockImplementation(() => {
+                        return Promise.resolve({
+                            send: jest.fn().mockImplementation(() => {
+                                return Promise.resolve();
+                            })
+                        })
+                    })
+                }
+            }
+        }),
+        GatewayIntentBits: {
+            Guilds: 1
+        }
+    }
+})
+const client = new discord.Client({ intents: [] });
 
 describe('Gilded Rose', () => {
     let shop: ShopInteractor

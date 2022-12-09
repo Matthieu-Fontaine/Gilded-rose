@@ -1,4 +1,4 @@
-import ItemsGateway from "../ItemsGateway";
+import ItemsGateway from "../item-handlers/ItemsGateway";
 import { AgingItem } from "../items/AgingItem";
 import { ConjuredItem } from "../items/ConjuredItem";
 import { Item } from "../items/Item";

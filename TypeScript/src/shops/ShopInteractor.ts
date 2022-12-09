@@ -1,9 +1,9 @@
-import ItemsGateway from './ItemsGateway';
-import { Item } from './items/Item';
-import SellItemRequest from './SellItemRequest';
+import ItemsGateway from '../item-handlers/ItemsGateway';
+import { Item } from '../items/Item';
+import SellItemRequest from '../item-handlers/SellItemRequest';
 import ShopInputBoundary from './ShopInputBoundary';
-import { RelicItem } from './items/relicItem';
-import { DiscordNotification } from './notification';
+import { RelicItem } from '../items/relicItem';
+import { DiscordNotification } from '../notification-senders/discord';
 
 export class ShopInteractor implements ShopInputBoundary {
 
