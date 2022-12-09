@@ -1,7 +1,7 @@
 import Attribute from "./itemAttributes";
 
 export abstract class Item {
-    constructor(name: string, sellIn: number, quality: number, baseValue: number, attributes: Attribute[]) {
+    constructor(name: string, sellIn: number, quality: number, baseValue: number, attributes: Attribute[] = []) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;

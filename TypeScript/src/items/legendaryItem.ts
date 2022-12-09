@@ -12,10 +12,10 @@ export class LegendaryItem extends Item {
     }
 
     updateQuality(): void {
-        // console.info('Legendary items do not change in quality');
+        console.info('Legendary items do not change in quality');
     }
 
     updateSellIn(): void {
-        // console.info('Legendary items do not change in sellIn');
+        console.info('Legendary items do not change in sellIn');
     }
 }
