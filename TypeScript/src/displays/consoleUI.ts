@@ -1,8 +1,8 @@
-import { ShopInteractor } from './ShopInteractor';
-import ItemsGateway from './ItemsGateway';
-import InMemoryInventoryRepository from './inventories/InMemoryInventoryRepository';
-import SellItemRequest from './SellItemRequest';
-import ShopInputBoundary from './ShopInputBoundary';
+import { ShopInteractor } from '../shops/ShopInteractor';
+import ItemsGateway from '../item-handlers/ItemsGateway';
+import InMemoryInventoryRepository from '../inventories/InMemoryInventoryRepository';
+import SellItemRequest from '../item-handlers/SellItemRequest';
+import ShopInputBoundary from '../shops/ShopInputBoundary';
 
 export class ConsoleUI {
     repository: ItemsGateway = new InMemoryInventoryRepository;

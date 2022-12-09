@@ -1,4 +1,4 @@
-import { Item } from './items/Item';
+import { Item } from '../items/Item';
 
 export default interface ItemsGateway {
 	getInventory(): Item[];

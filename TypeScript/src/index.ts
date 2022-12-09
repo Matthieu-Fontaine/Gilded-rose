@@ -1,4 +1,4 @@
-import { ConsoleUI } from "./consoleUI";
+import { ConsoleUI } from "./displays/consoleUI";
 import { ShopInteractor } from "./ShopInteractor";
 import ItemsGateway from "./ItemsGateway";
 import InMemoryInventoryRepository from "./inventories/InMemoryInventoryRepository";

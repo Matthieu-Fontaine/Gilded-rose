@@ -1,4 +1,4 @@
-import SellItemRequest from "./SellItemRequest";
+import SellItemRequest from "../item-handlers/SellItemRequest";
 
 export default interface ShopInputBoundary {
     displayBalance(balance: number): void;
