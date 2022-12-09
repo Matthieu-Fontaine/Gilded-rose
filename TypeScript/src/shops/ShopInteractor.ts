@@ -3,7 +3,7 @@ import { Item } from '../items/Item';
 import SellItemRequest from '../item-handlers/SellItemRequest';
 import ShopInputBoundary from './ShopInputBoundary';
 import { RelicItem } from '../items/relicItem';
-import { DiscordMessage } from '../notification-senders/discord';
+import * as Discord from '../notification-senders/discord';
 
 export class ShopInteractor implements ShopInputBoundary {
 
@@ -28,11 +28,11 @@ export class ShopInteractor implements ShopInputBoundary {
         });
     }
 
-    public sellItem(sellItemRequest: SellItemRequest): void {
+    public async sellItem(sellItemRequest: SellItemRequest): Promise<void> {
         const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
         if (!item || item instanceof RelicItem) return
         this.balance += item.getValue();
-        new DiscordMessage().send(`Sold ${item.name} for ${item.getValue()} gold.`);
+        await Discord.SendMessage(`Sold ${item.name} for ${item.getValue()} gold.`);
         const items = this.removeItem(item);
         this.repository.saveInventory(items);
     }
@@ -46,12 +46,12 @@ export class ShopInteractor implements ShopInputBoundary {
         return items;
     }
 
-    public auctionItem(sellItemRequest: SellItemRequest): void {
+    public async auctionItem(sellItemRequest: SellItemRequest): Promise<void> {
         const item = this.repository.findItem(sellItemRequest.name, sellItemRequest.quality);
         if (!item || item instanceof RelicItem) return
         let itemValue = this.Bidding(item);
         this.balance += itemValue;
-        new DiscordMessage().send(`Auctioned ${item.name} for ${itemValue} gold.`)
+        await Discord.SendMessage(`Auctioned ${item.name} for ${itemValue} gold.`)
         const items = this.removeItem(item);
         this.repository.saveInventory(items);
     }
