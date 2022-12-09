@@ -9,9 +9,10 @@ const shop: ShopInteractor = new ShopInteractor(repository);
 const ui = new ConsoleUI(shop);
 
 ui.displayInventory();
-ui.displayBalance();
+ui.displayBalance(shop.balance);
 ui.updateInventory();
 ui.sellItem("Aged Brie", 21);
+ui.auctionItem("Lettuce", 19);
 ui.displayInventory();
-ui.displayBalance();
+ui.displayBalance(shop.balance);
 
