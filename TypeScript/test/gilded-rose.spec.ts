@@ -1,8 +1,34 @@
-import ItemsGateway from '../src/ItemsGateway'
-import { ShopInteractor } from '../src/ShopInteractor'
+import ItemsGateway from '../src/item-handlers/ItemsGateway'
+import { ShopInteractor } from '../src/shops/ShopInteractor'
 import InMemoryInventoryRepository from '../src/inventories/InMemoryInventoryRepository'
-import SellItemRequest from '../src/SellItemRequest'
-import { RelicItem } from '../src/items/relicItem'
+import SellItemRequest from '../src/item-handlers/SellItemRequest'
+const Discord = require('../src/notification-senders/discord')
+jest.mock('discord.js', () => {
+    return {
+        Client: jest.fn().mockImplementation(() => {
+            return {
+                login: jest.fn().mockImplementation(() => {
+                    return Promise.resolve();
+                }),
+                destroy: jest.fn().mockImplementation(() => {
+                    return Promise.resolve();
+                }),
+                channels: {
+                    fetch: jest.fn().mockImplementation(() => {
+                        return Promise.resolve({
+                            send: jest.fn().mockImplementation(() => {
+                                return Promise.resolve();
+                            })
+                        })
+                    })
+                }
+            }
+        }),
+        GatewayIntentBits: {
+            Guilds: 1
+        }
+    }
+})
 
 describe('Gilded Rose', () => {
     let shop: ShopInteractor
@@ -49,23 +75,23 @@ describe('Gilded Rose', () => {
     it('should decrease quality of conjured item by 4 by not over 0', () => {
         expect(repository.getInventory()[11].quality).toBe(0)
     })
-    it('should sell item', () => {
-        shop.sellItem(new SellItemRequest('Red wine', 50))
+    it('should sell item', async () => {
+        await shop.sellItem(new SellItemRequest('Red wine', 50))
         expect(repository.getInventory().length).toBe(12)
         expect(shop.balance).toEqual(610)
     })
-    it('shouldn\'t sell item if not in inventory', () => {
-        shop.sellItem(new SellItemRequest('Lettuce', 40))
+    it('shouldn\'t sell item if not in inventory', async () => {
+        await shop.sellItem(new SellItemRequest('Lettuce', 40))
         expect(repository.getInventory().length).toBe(13)
         expect(shop.balance).toEqual(100)
     })
-    it('should auction an item', () => {
-        shop.auctionItem(new SellItemRequest('Lettuce', 19))
+    it('should auction an item', async () => {
+        await shop.auctionItem(new SellItemRequest('Lettuce', 19))
         expect(repository.getInventory().length).toBe(12)
         expect(shop.balance).toEqual(366.2000000000001)
     })
-    it('shouldn\'t auction item if not in inventory', () => {
-        shop.auctionItem(new SellItemRequest('Red wine', 40))
+    it('shouldn\'t auction item if not in inventory', async () => {
+        await shop.auctionItem(new SellItemRequest('Red wine', 40))
         expect(repository.getInventory().length).toBe(13)
         expect(shop.balance).toEqual(100)
     })
@@ -80,9 +106,15 @@ describe('Gilded Rose', () => {
         shop.updateInventory()
         expect(shop.balance).toEqual(200)
     })
-    it('should not sell relic item', () => {
-        shop.sellItem(new SellItemRequest('Relic', 50))
+    it('should not sell relic item', async () => {
+        await shop.sellItem(new SellItemRequest('Relic', 50))
         expect(repository.getInventory().length).toBe(13)
         expect(shop.balance).toEqual(100)
+    })
+    it('should send a discord message when item is sold', async () => {
+        Discord.SendMessage = jest.fn()
+        await shop.sellItem(new SellItemRequest('Red wine', 50))
+        expect(Discord.SendMessage).toHaveBeenCalledTimes(1)
+        expect(Discord.SendMessage).toHaveBeenCalledWith('Sold Red wine for 510 gold.')
     })
 })

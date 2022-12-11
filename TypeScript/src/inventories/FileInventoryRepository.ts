@@ -3,7 +3,7 @@ import * as path from "path"
 import { stringify } from 'csv-stringify';
 import { parse } from "csv-parse"
 import { Item } from "../items/Item"
-import ItemsGateway from "../ItemsGateway"
+import ItemsGateway from "../item-handlers/ItemsGateway"
 import { PerishableItem } from "../items/PerishableItem"
 import { LegendaryItem } from "../items/LegendaryItem"
 import { ConjuredItem } from "../items/ConjuredItem"
